@@ -1,5 +1,5 @@
 servers:
-  rda: 673600024919408680
+  rda: 427907779479601162
 
 test_servers: # Testing.
   rda: 676175299121250327
@@ -25,65 +25,14 @@ test_categories: # Testing.
   class: 677766311530594305
 
 roles:
-  teacher: 673608309198028811
-  profession_header: 821293721076629554
-  scripter: 673625018671824943
-  animator: 673625045188214789
-  modeler: 673625065828515901
-  builder: 673625104827154463
-  ui_designer: 673625123403857962
-  gfx_artist: 673625155859251211
-  audio_engineer: 674025935867215893
-  settings_header: 821304752671031317
-  experience_noalert: 821305627469021185
-  level_noalert: 821305537786413067
-  mee6_noalert: 821311069501915136
-  newclass_alert: 821305713015259187
+  owner: 689855810305785921 # King of the Pirates
+  high_admin: 815671157080326186 # Marine corps
+  admin: 689856369075290290 # Yonko
 
 test_roles: # Testing.
-  teacher: 677766292714815508
-  profession_header: 821299663705473074
-  scripter: 677766296993005571
-  animator: 677766298016677899
-  modeler: 677766298662600706
-  builder: 677766298947551243
-  ui_designer: 677766299916435457
-  gfx_artist: 677766301510533130
-  audio_engineer: 677766302286479390
-
-  settings_header: 822509082794917960
-  experience_noalert: 822509130530684928
-  level_noalert: 822509185912143923
-  mee6_noalert: 822509218178400307
-  newclass_alert: 822509233445535777
-
-level_categories:
-  Scripting:
-    - 673604566629220371
-  Animation:
-    - 673604608949747723
-  Modeling:
-    - 673604661093203981
-  Building:
-    - 673604639513641021
-  GFX:
-    - 675821688541151269
-  Audio Engineering:
-    - 711803414794731630
-
-test_level_categories: # Testing.
-  Scripting:
-    - 677766419785711616
-  Animation:
-    - 677766422415278096
-  Modeling:
-    - 677766426064584714
-  Building:
-    - 677766429860429854
-  GFX:
-    - 677766432359972885
-  Audio Engineering:
-    - 736312213907701800
+  owner: 676260552892481567 # Owner
+  high_admin: 677766289154113536 # Admin
+  admin: 677766290466799616 # Moderator
 
 reaction_roles: # Can use global placeholders from messages.yml in emojis
   profiles:

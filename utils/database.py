@@ -1,7 +1,8 @@
 import os
 import logging
-import dotenv
+import traceback
 
+import dotenv
 import psycopg2
 
 logger = logging.getLogger('discord')
@@ -14,6 +15,7 @@ connection = None
 cursor = None
 
 dotenv.load_dotenv("./.env")
+IS_DEBUG = os.environ['DEBUG'] == "1"
 
 
 def connect(url=os.environ['DATABASE_URL'], sslmode='require', connect_timeout=-1, **kwargs):
@@ -28,15 +30,24 @@ def connect(url=os.environ['DATABASE_URL'], sslmode='require', connect_timeout=-
 connect()
 
 
-def update(*args):
+def update(*args, many: bool = False):
     """
     Executes a query and commits it.
     """
     try:
-        cursor.execute(*args)
+        if not many:
+            cursor.execute(*args)
+        else:
+            cursor.executemany(*args)
         connection.commit()
         return cursor
-    except psycopg2.DatabaseError:
+    except psycopg2.errors.SyntaxError as e:
+        if IS_DEBUG:
+            logger.error(traceback.format_exc() + "\n" + args[0])
+    except psycopg2.DatabaseError as e:
+        if IS_DEBUG:
+            logger.error(traceback.format_exc())
+            return
         connect()
         logger.debug("The update has failed! A new connection has been created.")
         return update(*args)
@@ -50,6 +61,9 @@ def query(*args):
         cursor.execute(*args)
         return cursor
     except psycopg2.DatabaseError:
+        if IS_DEBUG:
+            logger.error(traceback.format_exc())
+            return
         connect()
         logger.debug("The query has failed! A new connection has been created.")
         return query(*args)

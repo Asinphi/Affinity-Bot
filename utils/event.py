@@ -13,11 +13,8 @@ class Event:
         self._handlers.append(func)
         return func
 
-    @staticmethod
-    def __default_check():
-        return True
-
-    async def wait(self, check: Callable = __default_check, timeout: float = None, future: asyncio.Future = None):
+    async def wait(self, check: Callable = lambda *args, **kwargs: True, timeout: float = None,
+                   future: asyncio.Future = None):
         future = future or asyncio.get_event_loop().create_future()
         self.signals[future] = check
         try:

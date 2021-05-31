@@ -47,161 +47,25 @@ global_placeholders:
 messages:
   help:
     - embed:
-        title: "Headmaster - Commands"
+        title: "Silly Franky - Commands"
         color: "%color.info%"
         description: |
-          𝐿𝑒𝑎𝑟𝑛 𝑙𝑖𝑘𝑒 𝑛𝑜 𝑗𝑜𝑦 𝑖𝑠 𝑔𝑟𝑒𝑎𝑡𝑒𝑟, 𝑆𝑡𝑟𝑖𝑣𝑒 𝑙𝑖𝑘𝑒 𝑦𝑜𝑢'𝑙𝑙 ℎ𝑎𝑣𝑒 𝑛𝑜 𝑟𝑒𝑔𝑟𝑒𝑡𝑠,
-          𝑇𝑒𝑎𝑐ℎ 𝑙𝑖𝑘𝑒 𝑛𝑜 𝑙𝑜𝑣𝑒 𝑖𝑠 ℎ𝑖𝑔ℎ𝑒𝑟, 𝐶𝑟𝑒𝑎𝑡𝑒 𝑤ℎ𝑎𝑡 𝑦𝑜𝑢'𝑙𝑙 𝑛𝑒𝑣𝑒𝑟 𝑓𝑜𝑟𝑔𝑒𝑡.
-          *[**Roblox Development Academy**](https://discord.gg/NxuhkqH)*
+          Affinity's own custom bot :D
+          *[**Affinity**](https://discord.gg/NxuhkqH)*
         footer:
-          text: "Made by JL and líng for Roblox Development Academy."
-          icon_url: "https://cdn.discordapp.com/avatars/260608867292020737/6e171a1f5883419ac89a52695c659ba5.webp?size=256"
+          text: "Made by JL for Affinity"
+          icon_url: "https://cdn.discordapp.com/attachments/295377965334790144/847308265607135232/Monika_Emoji.png"
         fields:
-          - name: "General Commands"
+          - name: "Event Commands"
             inline: false
             value: |
-              **help** - Show this message.
-              **getprefix** - Show the server command prefix.
-              **profile** - View someone's profile.
-              **leaderboard** - Show the leaderboard.
-              **categories** - Show the categories for levels.
-              **remind** - Remind others to give your solution exp.
-              **hw** - Create, submit, and manage assignments.
-          - name: "Teacher Commands"
-            inline: false
-            value: |
-              **apply** - Apply for teacher role.
-              **class** - Create a new class.
+              **/character** - Play as your favorite characters!
           - name: "Admin Commands"
             inline: false
             value: |
               **setprefix** - Set the server command prefix.
               **ignore** - Choose channels for the bot to ignore.
-          - name: "Reaction Commands"
-            inline: false
-            value: |
-              *React to a message with one of these emojis.*
-
-              %emoji.profile% **profile** - View the message author's profile.
-              %emoji.report% **report** - Flag a message for inappropriate content.
-              %emoji.solution% **solution** - Mark a message as the solution to your problem.
-
-  info_channel:
-    - file: "web/static/info_discord/RDA Banner.png"
-    - content: >
-        **Welcome!** Roblox Development Academy is a school and community for game developers at any point in their
-        journey. It's a school for any aspect of development, from scripting to art to audio engineering.
-        You can consider us your beginning, the next step in your learning, or another home you can return to any time
-        you need support, shelter, or companionship. You can even stay a while and help teach the next generation of
-        developers. No matter your dreams, goals, and aspirations, RDA is here for you! %emoji.happy%
-    - file: "web/static/info_discord/RDA Classes.png"
-    - content: >
-        Our custom bot, Headmaster (me :D), provides a system for teachers to schedule and host classes. You may see
-        the scheduled classes and their times in %classes_channel%.
-
-
-        If you are an experienced developer, we invite you to teach here at RDA and share your knowledge with students
-        of your own! You can use the `.apply` command in the %commands_channel% to apply for the teacher role. Teachers
-        can use the `.class` command to schedule a class. Headmaster (don't mind me talking about myself in third person)
-        provides a text channel/optional voice channel or a one-click setup classroom server template to open your own
-        classroom Discord server. `.help` offers a full list of all Headmaster's commands.
-    - file: "web/static/info_discord/RDA Assignments.png"
-    - content: >
-        Headmaster also provides an assignments system where anyone can create their own assignment for anyone to
-        submit. You can also schedule an assignment solution to be sent to all submitters immediately after submitting,
-        at a certain date, or a specified time after submission.
-
-
-        Use the `.hw` command to create or submit an assignment. `.help` offers a full list of all Headmaster's
-        commands.
-    - file: "web/static/info_discord/RDA Levels.png"
-    - content: >
-        Headmaster has a levels and leaderboards system based around helping others with their development. If someone
-        finds the solution to your problem, you can react to their message with the %emoji.solution% emoji to give
-        them level experience. Please only do this once per problem.
-
-
-        You can view your own or others' level and rank in each of the development categories with `.profile`, view the
-        entire leaderboard with `.leaderboard`, and have me politely remind others to mark solutions with `.remind`.
-        `.help` offers a full list of all Headmaster's commands.
-    - file: "web/static/info_discord/RDA Rules.png"
-    - content: >
-        > __**Tact.**__ Members of RDA do not discriminate against once another. We avoid hurting each other with our
-        words. We avoid NSFW content and excessive profanity. We avoid harassing others and causing disruptions such
-        as through spamming. We avoid needlessly offending each other. We know to recognize our differences without
-        conflict.
-
-
-        > __**Compassion.**__ Members of RDA are supportive of one another and contribute to the community. When we
-        offer critique, we do not criticize to tear down others, but we offer constructive, thoughtful criticism.
-
-
-        > __**Integrity.**__ Members of RDA do not claim others' work as our own and we offer due credit to those who
-        contribute.
-
-
-        These are our principles. Please abide by them while you are in RDA. Thank you.
-    - file: "web/static/info_discord/RDA Roles.png"
-    - content: |
-        > __**Choose your role**__
-        > *React with the corresponding emoji for the role that you want*
-
-        > __List of Roles__
-        >     - :one: Scripter
-        >     - :two: Animator
-        >     - :three: Modeler
-        >     - :four: Builder
-        >     - :five: UI Designer
-        >     - :six: GFX Artist (graphics)
-        >     - :seven: Audio Engineer
-
-        > React below.
-      reactions:
-        - "1%emoji.keycap%"
-        - "2%emoji.keycap%"
-        - "3%emoji.keycap%"
-        - "4%emoji.keycap%"
-        - "5%emoji.keycap%"
-        - "6%emoji.keycap%"
-        - "7%emoji.keycap%"
-    - file: "web/static/info_discord/RDA Settings.png"
-    - content: >
-        > Opt out of a DM notification when someone rewards you experience in RDA development help.
-      reactions:
-        - "%emoji.alerts_off%"
-    - content: >
-        > Opt out of a DM notification when you level up in RDA development help.
-      reactions:
-        - "%emoji.alerts_off%"
-    - content: > # Disables read access to the level-ups channel
-        > Opt out of a ping notification when you level up on the MEE6 activity leaderboard.
-      reactions:
-        - "%emoji.alerts_off%"
-    - content: >
-        > Get a ping notification when a teacher schedules a new class in the classes channel.
-      reactions:
-        - "%emoji.alerts_on%"
-    - embed:
-        title: "Contents"
-        color: "%color.info%"
-        description: |
-          [Welcome](%link0%)
-          [Classes](%link1%)
-          [Assignments](%link2%)
-          [Levels, Leaderboards, and Development Help](%link3%)
-          [Rules](%link4%)
-          [Choose Roles](%link5%)
-          [Notification Settings](%link6%)
-
-  remind:
-    - embed:
-        title: "Reminder"
-        color: "%color.info%"
-        description: >
-          **If someone's solution solved your problem, remember to react with a %emoji.solution% to give the writer
-          exp!**
-        thumbnail:
-          url: "%url.happy%"
+              **collection** - Manage character collections.
 
   to_dms:
     - embed:
@@ -211,592 +75,6 @@ messages:
           **I have sent you a private message!**
 
           Please proceed to your DMs.
-
-  class:
-    main:
-      - embed:
-          title: "Classes"
-          description: >
-            Create your own classes and teach students. You allow students to sign up, configure your class,
-            and schedule it for a certain date.
-
-            You need the %teacher_role% role to teach classes. You may apply to be teacher via the `.apply` command.
-          fields:
-            - name: "Commands"
-              inline: false
-              value: |
-                **class create** - Schedules a class.
-                **class check** - Post an interest check.
-                **class remove** <name> - Cancels one of your classes.
-            - name: "Your classes"
-              inline: false
-              value: "%classes%"
-        no_classes: "*You have no classes. Use the `class create` command to create one.*"
-        deleted_header: "**`%name%` was successfully deleted!**\n\n"
-        not_found_header: "**You have not scheduled a class named `%name%`.**\n\n"
-
-    interest_check:
-      - embed:
-          title: "Interest Check | %name%"
-          color: "%color.info%"
-          description: "%description%"
-          author:
-            name: "%teacher%"
-            icon_url: "%avatar%"
-          fields:
-            - name: "Interest Check Poster"
-              inline: false
-              value: "%teacher_mention%"
-        reactions:
-          - "%emoji.interest%"
-
-    class_info:
-      - content: "%new_class_ping%"
-        allowed_mentions:
-          roles: true
-        embed:
-          title: "Class | %name%"
-          color: "%color.info%"
-          description: |
-            %description%
-          author:
-            name: "%teacher%"
-            icon_url: "%avatar%"
-          fields:
-            - name: "Teacher"
-              inline: false
-              value: "%teacher_mention%"
-            - name: "Starting Time"
-              inline: false
-              value: "Click [here](%url_display_time%) to see the starting time."
-          footer:
-            text: "Click below to enroll"
-        reactions:
-          - "%emoji.enroll%"
-        max_students: "%max_students%"
-
-    class_starting:
-      - embed:
-          title: "Class is starting!"
-          color: "%color.info%"
-          description: |
-            **Class `%name%`, taught by %teacher%, is starting now!**
-
-            You have enrolled for this class in the [class information post](%class_info%).
-          fields:
-            - name: "Attend Class"
-              value: "%invite%"
-        no_invite: "*There are no channels in the teacher's classroom server! You may notify the teacher, %teacher%."
-        invite: "Click [here](%invite%) to attend the class."
-
-    your_class_starting:
-      - embed:
-          title: "Your class is starting!"
-          color: "%color.info%"
-          description: |
-            **Your class, `%name%`, is starting now!**
-
-
-            %invite%
-
-
-            Thank you for your commitment to teaching. Take care of your students. We'll be cheering for you from the
-            sidelines %emoji.happy%
-          fields:
-            - name: "Students"
-              value: "%num_students% students enrolled on the [class information post](%class_info%)"
-
-    create:
-      1:
-        - embed:
-            title: "%title%"
-            color: "%color.wizard%"
-            description: >
-              %header%**What is the name of the class?**
-
-
-              Respond with the class's name. This will be used as a unique, case-sensitive identifier that will be shown
-              to students.
-
-
-              Do not make the name longer than 32 characters.%prompt.cancel%
-            fields:
-              - name: "Allowed Characters"
-                value: |
-                  %s%%s%%bullet% Alphanumeric characters
-                  %s%%s%%bullet% Spaces
-                  %s%%s%%bullet% Dashes
-                  %s%%s%%bullet% Colons
-            footer:
-              text: "%prompt.respond_5m%"
-          invalid_name: "**The class name is invalid. Please follow the instructions below.**\n\n"
-      2:
-        - embed:
-            title: "%title%"
-            color: "%color.wizard%"
-            description: >
-              %header%**Write the description for your class.**
-
-
-              This description will be shown students in the classes channel. Please describe what the class is about
-              and what you will teach in the class. Feel free to use markdown and make it as fancy as you'd like.
-              %prompt.back_or_cancel%
-            footer:
-              text: "%prompt.respond%"
-          name_taken: >
-            **You already have a class by this name. If you continue, your new class will override the original.
-            Respond with `cancel` to cancel the prompt.**\n\n
-          name_is: "__**The name of the class is `%name%`.**__\n\n"
-      3:
-        - embed:
-            title: "%title%"
-            color: "%color.wizard%"
-            description: |
-              %header%__**The class description has been linked to [this message](%description%).**__
-
-              **Describe the prerequisites for attending the class.**
-
-              Include knowledge you expect the students to already know when they sign up.%prompt.options%
-            footer:
-              text: "%prompt.respond_5m%"
-          too_long: "**Your response is too long. It cannot be greater than 1024 characters.**\n\n"
-      4:
-        - embed:
-            title: "Create Class"
-            color: "%color.wizard%"
-            description: |
-              %header%**What image would you like to show in the class info?**
-
-              You can paste an image URL or attach an image file to your response.%prompt.options%
-            footer:
-              text: "%prompt.respond_5m%"
-          prerequisites_is: "__**The prerequisites have been linked to [this message](%prerequisites%).**__\n\n"
-          no_prerequisites: "__**There are no prerequisites for the class.**__\n\n"
-      5:
-        - embed:
-            title: "Create Class"
-            color: "%color.wizard%"
-            description: >
-              %header%**What is the maximum number of students you will accept in your class?**
-
-
-              This is only for display. You can enforce the limit yourself. For no maximum limit, `skip` this prompt.
-              %prompt.options%
-            footer:
-              text: "%prompt.respond_5m%"
-          image_is: "__**[This image](%image%) will be used for the url.**__\n\n"
-          no_image: "__**No image will be displayed in class info.**__\n\n"
-          invalid_int: "**That is not a valid integer. Please respond with a valid integer.**\n\n"
-      6:
-        - embed:
-            title: "Create Class"
-            color: "%color.wizard%"
-            description: >
-              %header%**At what time will the class start?**
-
-
-              Click [here](%url%) to select a date and time. When class starts, all students who signed up would be
-              notified and invited into the classroom.
-            footer:
-              text: "%prompt.respond_5m%"
-          max_students_is: "__**The maximum number of students is %max_students%.**__\n\n"
-          no_max_students: "__**There is no maximum limit for students.**__\n\n"
-          invalid_submission: "**Invalid submission. Please try again.**\n\n"
-      7:
-        - embed:
-            title: "Create Class"
-            color: "%color.wizard%"
-            description: >
-              **Where do you want the class to be held?**
-
-
-              %s%%s%:one: A new server from a server template with the classroom already set up.
-
-              %s%%s%:two: A new text channel in this server you will be able to control.
-
-              %s%%s%:three: A new text channel and voice channel in this server you will be able to control.
-
-
-              *Channels on RDA will be deleted after 30 minutes of inactivity.*
-
-
-              *Please consider option :one:. You have more categories for organization, ability to add your own bots,
-              full access to Headmaster and ability to customize him. Once Headmaster joins enough servers, he will
-              be able to bypass rate limits, which means more and more speed and power!*%prompt.react%
-            footer:
-              text: "%prompt.respond_5m%"
-          reactions:
-            - "1%emoji.keycap%"
-            - "2%emoji.keycap%"
-            - "3%emoji.keycap%"
-            - "%emoji.return%"
-      8:
-        - embed:
-            title: "Confirm Info"
-            color: "%color.wizard%"
-            description: "%description%"
-            fields:
-              - name: "Prerequisites"
-                inline: false
-                value: "%prerequisites%"
-              - name: "Classroom"
-                inline: false
-                value: "%classroom%"
-            footer:
-              text: "Click below to confirm the class details"
-          reactions:
-            - "%emoji.confirm%"
-            - "%emoji.return%"
-          server: "%s%%s%%bullet% Server Classroom"
-          text: "%s%%s%%bullet% Text Channel"
-          text_and_voice: |
-            %s%%s%%bullet% Text Channel
-            %s%%s%%bullet% Voice Channel
-      9:
-        - embed:
-            title: "Create Class"
-            color: "%color.wizard%"
-            description: >
-              **Create the server and add Headmaster.**
-
-              Click [here](%classroom_template%) to create the server.
-
-              Once you're done, click [here](%invite%) and select your newly-created server to add
-              Headmaster.%prompt.back_or_cancel%
-            footer:
-              text: "%prompt.respond_5m%"
-      interest_check_completed:
-        - embed:
-            title: "Create Interest Check"
-            color: "%color.success%"
-            description: >
-              **Successfully posted interest check!**
-
-
-              Students can express their interest in the class by reacting to [the interest check](%url%) with the
-              %emoji.interest% emoji.
-      completed:
-        - embed:
-            title: "Create Class"
-            color: "%color.success%"
-            description: |
-              **Successfully scheduled class!**
-
-              Students can enroll for the class by reacting to [the class information post](%url%) with %emoji.enroll%.
-
-  teacher_application:
-    initiate:
-      - embed:
-          title: "Apply for Teacher"
-          color: "%color.wizard%"
-          description: >
-            You need the Teacher role to create your own classes and teach students.
-            You need only to satisfy the requirements and periodically teach lessons.
-
-
-            React with %emoji.confirm% if you believe you satisfy these requirements
-            and wish to apply to be a teacher at Roblox Development Academy.
-            React with %emoji.no% to cancel.
-          fields:
-            - name: "Requirements"
-              value: |
-                %s%%s%- Mature.
-                %s%%s%- Responsible.
-                %s%%s%- Active.
-                %s%%s%- Knowledgeable about the subject you're teaching.
-          footer:
-            text: "%prompt.respond_5m%"
-        reactions:
-          - "%emoji.confirm%"
-          - "%emoji.no%"
-    start:
-      - embed:
-          title: "Apply for Teacher"
-          color: "%color.success%"
-          description: |
-            **I have sent you a private message!**
-
-            Please proceed with the application in your DMs.
-    dm_message:
-      - embed:
-          title: "Teacher Application"
-          color: "%color.wizard%"
-          description: |
-            Please send any proof you have of your expertise, such as portfolios, links, pictures, or files.
-
-            You may send multiple messages. I will react with %emoji.gotcha% to show that I have received each message.
-            If you don't respond within 5 minutes, the application will be canceled.
-          fields:
-            - name: "Done"
-              value: |
-                Please respond with "done" when you are finished with your application.
-              inline: false
-            - name: "Cancel"
-              value: |
-                Please respond with "cancel" to cancel the application.
-              inline: false
-    ta_content:
-      - embed:
-          title: "Teacher application for %user% has been successfully completed"
-          color: "%color.success%"
-          description: "User: %user_mention%"
-    complete:
-      - embed:
-          title: "Application Submitted"
-          color: "%color.success%"
-          description: >
-            Your application has been submitted! Thank you for applying.
-            You will be contacted once results are out.
-    end:
-      - embed:
-          title: "End of teacher application for %user%"
-          color: "%color.success%"
-
-  assignment:
-    create:
-      1:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.wizard%"
-            description: >
-              %header%**What is the name of the assignment?**
-
-
-              This is a unique, case-sensitive identifier that students can use to submit the assignment. It cannot be
-              longer than 32 characters. Using an existing name will replace the previous assignment.%prompt.cancel%
-            fields:
-              - name: "Allowed Characters"
-                value: |
-                  %s%%s%%bullet% Alphanumeric characters
-                  %s%%s%%bullet% Spaces
-                  %s%%s%%bullet% Dashes
-                  %s%%s%%bullet% Colons
-            footer:
-              text: "%prompt.respond_5m%"
-          invalid_name: "**The name is invalid. Please follow the instructions below.**\n\n"
-      2:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.wizard%"
-            description: >
-              %header%
-
-
-              **Write the description to the assignment.**
-
-
-              This will be shown to any student looking for assignment information. You can attach files and
-              edit your description freely; the newest version will always be used.%prompt.back_or_cancel%
-            footer:
-              text: "%prompt.respond%"
-      3:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.wizard%"
-            description: >
-              __**The assignment description has been linked to [this message](%url%)**__
-
-
-              **Write the solution to the assignment.**
-
-
-              This will be shown at a designated time to all students who have submitted the assignment. You
-              can attach files and edit your solution freely; the newest version will always be used.%prompt.options%
-            footer:
-              text: "%prompt.respond%"
-      4:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.wizard%"
-            description: >
-              __**The assignment solution has been linked to [this message](%url%)**__
-
-
-              **When do you want the answer to be shown to submitters?**
-
-
-              %s%%s%:one: Immediately after submission
-
-              %s%%s%:two: After a specified time interval has passed after submission
-
-              %s%%s%:three: At a specified date and time
-
-
-              The solution will only be shown to those who have submitted the assignment. You will be able to
-              see all submissions.%prompt.react%
-            footer:
-              text: "%prompt.respond_5m%"
-          reactions:
-            - "1%emoji.keycap%"
-            - "2%emoji.keycap%"
-            - "3%emoji.keycap%"
-            - "%emoji.return%"
-      6:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.wizard%"
-            description: |
-              **How long after the submitter submits will he or she be shown the solution?**
-            fields:
-              - name: "Response Format Examples"
-                value: |
-                  %s%%s%%bullet% 3h
-                  %s%%s%%bullet% 7d 8h 32m 11s
-                  %s%%s%%bullet% 5m22.2s
-            footer:
-              text: "%prompt.respond_5m%"
-      7:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.wizard%"
-            description: |
-              %header%**When will submitters be shown the assignment?**
-
-              Click [here](%url%) to select a date and time.%prompt.back_or_cancel%
-            footer:
-              text: "%prompt.respond_5m%"
-      8:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.wizard%"
-            description: |
-              **After this time has passed, will the assignment be**
-
-              %s%%s%1%emoji.keycap% Deleted or
-              %s%%s%2%emoji.keycap% Open and automatically send solutions right away to submitters?
-            footer:
-              text: "%prompt.respond_5m%"
-          reactions:
-            - "1%emoji.keycap%"
-            - "2%emoji.keycap%"
-            - "%emoji.return%"
-      confirm:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.wizard%"
-            description: |
-              **Confirm assignment creation.**
-
-              Click %emoji.confirm% below to confirm or %emoji.return% to go back.
-            fields:
-              - name: "Name"
-                inline: false
-                value: "%name%"
-              - name: "Description"
-                inline: false
-                value: "The description has been linked to [this message](%description_url%). Edit to change it."
-              - name: "Solution"
-                inline: false
-                value: "The solution has been linked to [this message](%solution_url%). Edit to change it."
-              - name: "Time"
-                inline: false
-                value: "%time%"
-            footer:
-              text: "%prompt.respond_5m%"
-          reactions:
-            - "%emoji.confirm%"
-            - "%emoji.return%"
-      completed:
-        - embed:
-            title: "Create Assignment"
-            color: "%color.success%"
-            description: |
-              **Assignment `%name%` successfully created!**
-
-              Students may use the `hw submit` command to submit the assignment.
-            fields:
-              - name: "Examples"
-                value: |
-                  %s%%s%%bullet% hw submit %assigner% %name%
-
-    submit:
-      1:
-        - embed:
-            title: "%sub% Assignment"
-            color: "%color.wizard%"
-            description: |
-              %header%**Who is the creator of the assignment?**
-
-              Enter the name or user id of the assignment creator.
-
-              *You can get the id by enabling developer mode and right clicking the profile picture and selecting 'Copy ID'*%prompt.cancel%
-            footer:
-              text: "%prompt.respond_5m%"
-      2:
-        - embed:
-            title: "%sub% Assignment"
-            color: "%color.wizard%"
-            description: |
-              %header%**What is the name of the assignment?**%prompt.back_or_cancel%
-            fields:
-              - name: "Assignments"
-                value: "%list%"
-            footer:
-              text: "%prompt.respond_5m%"
-      3:
-        - embed:
-            title: "%sub% Assignment"
-            description: |
-              Assignment `%name%` created by %assigner%%instructions%
-          submit_instructions: |
-
-            **Respond with your assignment submission.**
-
-            Your submission will be sent to the assignment creator. You may re-submit at any time.%prompt.back_or_cancel%
-      complete:
-        - embed:
-            title: "Submit Assignment"
-            color: "%color.success%"
-            description: |
-              Assignment submitted to %assigner%!
-      submission:
-        - embed:
-            title: "Assignment Submitted"
-            color: "%color.info%"
-            description: |
-              %submitter% submitted the assignment `%name%`!
-      solution:
-        - embed:
-            title: "Assignment Solution"
-            color: "%color.info%"
-            description: |
-              The solution for assignment `%name%` created by %assigner%:
-
-    solution:
-      - embed:
-          title: "Assignment Solution:"
-          color: "%color.info%"
-          description: |
-            Solution for assignment `%name%` by %assigner%:
-
-    main:
-      - embed:
-          title: "%title%"
-          description: |
-            %header%Give students assignments to complete and a solution to check afterwards.
-            Use `hw create` to create an assignment.
-            Use `hw remove <assignment name>` to remove one of your assignments.
-          fields:
-            - name: "Commands"
-              value: |
-                **hw create** - Create an assignment
-                **hw remove** - Remove one of your assignments
-                **hw submit** - Submit a solution to an assignment
-                **hw view** <assigner> - View an assigner's assignments
-              inline: false
-            - name: "Your Assignments"
-              value: "%assignments%"
-              inline: false
-        no_assignments: "*There are no assignments. Use* `hw create` *to create one.*"
-
-    error:
-      too_many:
-        - embed:
-            title: "%emoji.error% Too Many Assignments!"
-            color: "%color.error%"
-            description: >
-              You have reached the maximum limit for assignments. You may use the `hw remove` command to delete
-              assignments.
 
   ignore:
     - embed:
@@ -850,208 +128,198 @@ messages:
           - name: "Description"
             value: "%description%"
 
-  levels:
-    leaderboard:
-      - embed:
-          title: "Leaderboard"
-          color: "%color.level%"
-          description: |
-            You can earn exp by helping people in the help channels and participating in contests and also earn multipliers when participating in game nights.
-            You earn a specific amount of exp depending on which category you helped with.
-            If someone helps you, you may react to their message with %emoji.solution% to give them exp.
-            Vice versa, you earn exp whenever someone reacts to your message with %emoji.solution%.
-
-            Use `%prefix%leaderboard <category>` to view the leaderboard of a specific category.
-            Use `%prefix%categories` for a list of the categories.
-            Your multipliers can be viewed using `%prefix%profile`
-          footer:
-            text: "Page: %page%.     %user%"
-        reactions:
-          - "%emoji.rewind%"
-          - "%emoji.previous%"
-          - "%emoji.next%"
-          - "%emoji.fast_forward%"
-    categories:
-      - embed:
-          title: "Categories"
-          color: "%color.info%"
-          description: |
-            You can earn exp by helping people in the help channels.
-            React to other members' messages with %emoji.solution% to show that they have answered your question or helped you.
-            Message senders with a %emoji.solution% will receive exp depending on the category they helped in (average 11 exp).
-
-            Below is a list of the categories and the corresponding channels and exp rates.
-    level_up:
-      1:
-        - embed:
-            title: "Level-Up"
-            color: "%color.level%"
-            description: |
-              Congratulations, you are now a level %level% %category% in RDA!
-      2:
-        - embed:
-            title: "Level-Up"
-            color: "%color.level%"
-            description: |
-              Congratulations, you have advanced to level %level% in %category% in RDA!
-    experience_up:
-      - embed:
-          title: "%title%"
-          color: "%color.info%"
-          description: |
-            %giver% awarded you %experience% EXP for helping them! Thank you for helping others on RDA!
-          fields:
-            - name: "Progress"
-              value: |
-                __**Level %level% %profession%**__
-                %exp_bar% **%current_exp%/%total_level_exp%**
-            - name: "Active Multipliers"
-              value: "%multipliers%"
-          footer:
-            text: "You can view your statistics using the .profile command"
-
-  profile:
-    - embed:
-        title: "Profile"
-        color: "%color.info%"
-        description: |
-          %nickname%
-
-        author:
-          name: "%user_name%"
-        thumbnail:
-          url: "%avatar_url%"
-        footer:
-          text: "User ID: %user_id%"
-        fields:
-          - name: "Levels"
-            value: "%levels%"
-            inline: true
-
-          - name: "Exp Multipliers"
-            value: "%multipliers%"
-            inline: true
-
-          - name: "Joined RDA"
-            value: "%join_server%.\n%server_duration% ago."
-            inline: false
-
-          - name: "Joined Discord"
-            value: "%join_discord%.\n%discord_duration% ago."
-            inline: true
-
-  report:
-    start:
-      - embed:
-          title: "%reported% Has Been Reported"
-          color: "%color.info%"
-          description: |
-            This user has been reported for the following message:
-          fields:
-            - name: "Location"
-              value: |
-                **Guild:** %guild_name%
-                ID: %guild_id%
-
-                **Channel:** <#%channel_id%>
-                %channel_name%
-                ID: %channel_id%
-
-                **Message:** [Link.](%jump_url%)
-                ID: %message_id%
-            - name: "Information"
-              value: |
-                **Reported User:**
-                <@%reported_id%>
-                %reported%
-                ID: %reported_id%
-
-                **Reporter:**
-                <@%reporter_id%>
-                %reporter%
-                ID: %reporter_id%
-
-                **Time Message was Sent:** %message_sent_at%
-                **Time of Report:** %report_time%
-    end:
-      - embed:
-          title: "End of Report"
-          color: "%color.success%"
-    success:
-      - embed:
-          title: "Report Received"
-          color: "%color.success%"
-          description: |
-            <@%reported_id%> has been reported.
-            Thank you for your report.
-            If you believe this is an error, please contact one of the staff.
-
-  multiplier:
-    usage:
-      - embed:
-          title: "Give a User a Multiplier"
-          color: "%color.info%"
-          description: |
-            Multipliers increase the exp rate when earning exp.
-
-            Use `%prefix%multiplier <user> <multiplier> <duration (optional)>` to give **<user>** a multiplier of **<multiplier>**.
-            If a duration is given, the temporary multiplier will last **<duration>** from when the command is executed.
-            If no duration is given, the user will be given a pernament multiplier.
-            The multiplier must be a float greater than or equal to 0 and at most 14641.
-
-            Some events giving out large amounts of exp may be multiplier immune.
-          fields:
-            - name: "Duration Format"
-              value: |
-                `0d 0h 0m 0s`
-                or
-                `0d0h0m0s`
-
-                d = days.
-                h = hours.
-                m = minutes.
-                s = seconds.
-              inline: false
-
-            - name: "Examples"
-              value: |
-                %prefix%multiplier <@260608867292020737> 2 77d 1h
-                %prefix%multiplier 450375444450115585 1.1 51h
-                %prefix%multiplier Coneylove133 1.7 1d7.5h2s
-                %prefix%multiplier 697655651127525498 2.5
-              inline: false
-    success:
-      - embed:
-          title: "Multiplier Added"
-          color: "%color.success%"
-          description: |
-            A multiplier of %multiplier%x has been given to %user%.
-            **Duration:** %duration%.
-            **Expiration Date:** %expire%.
-
-  exp:
-    help:
-      - embed:
-          title: "exp_add"
-          color: "%color.info%"
-          description: |
-            This command is used to give or remove exp from someone.
-
-            Use `%prefix%exp_add <user(s)> <category name> <amount>` to give someone exp.
-            To take away exp, enter a negative amount.
-
-            `<amount>` must be a float.
-    success:
-      - embed:
-          title: "Success"
-          color: "%color.success%"
-          description: "Category: %category%.\n%amount% exp has been %action% %users%."
-
   static:
     info:
       - embed:
           title: "Welcome!"
           color: "%color.info%"
+
+  characters:
+    rolled:
+      - embed:
+          title: "%character%"
+          color: "%color.info%"
+          description: >
+            **%collection% Character** %stars%
+
+
+            There's only **%quantity%** left! You have 90 seconds to use `/character claim` before it expires!
+            Once you have claimed a character, it cannot be undone.
+
+
+            Use `/character roll` to re-roll.
+          image:
+            url: "%picture%"
+        expired: |
+          **%collection% Character** %stars%
+
+          This character has expired. Use `/character roll` to re-roll.
+
+    claimed:
+      - embed:
+          title: "Claimed %character%!"
+          color: "%color.success%"
+          description: |
+            You successfully claimed [%character%](%url%) as your %collection% character! There's %num_left% remaining.
+
+    list:
+      - embed:
+          title: "Remaining Available Characters"
+          color: "%color.info%"
+          description: |
+            Use `/character roll` to roll for one of these characters.
+
+    add:
+      enter_characters:
+        - embed:
+            title: "Enter character data"
+            color: "%color.wizard%"
+            description: >
+              Put each character on its own line (`SHIFT + ENTER` to move down a line) formatted as
+              ```
+              character name `picture-url` tier
+              ```
+              Two ticks (below your ESC key) wrap the picture URL and a space separates the name and picture.
+              %prompt.cancel%
+            fields:
+              - name: "Examples"
+                value: |
+                  %s%%s%%bullet% Mr. Crabs `https://tinyurl.com/mrcrabspic` Rare
+                  %s%%s%%bullet% Spongebob Squarepants `https://tinyurl.com/spongepic` Legendary
+                inline: false
+              - name: "Tiers"
+                value: |
+                  %s%%s%%bullet% Mythical: 1%, x1 (secret hidden tier)
+                  %s%%s%%bullet% Legendary: 5%, x1
+                  %s%%s%%bullet% Rare: 20%, x2
+                  %s%%s%%bullet% Uncommon: 30%, x3
+                  %s%%s%%bullet% Common: 30%, x4 (yes, I know - it's a gacha game design psychological thing)
+                  %s%%s%%bullet% Trash: 14%, infinite (will be higher when other tiers run out of characters)
+
+                  Probabilities refer to the probability for the entire group, not individuals.
+                  Quantites are per character.
+                  Optionally specifiy a quantity number at the end of the line to override the default quantity.
+                inline: false
+
+      success:
+        - embed:
+            title: "Successfully added characters"
+            color: "%color.success%"
+            description: |
+              Added %count% characters to the `%collection%` character collection!
+
+              Use `/collection activate %collection%` to allow users to roll for the characters.
+              Use `/collection add %collection%` to add more characters to this collection.
+              Use `/collection remove %collection%` to remove this collection and all its characters.
+
+    collection_list:
+      - embed:
+          title: "Character Collections"
+          color: "%color.info%"
+          description: |
+            **Bold** collections are active, meaning players can roll for their characters.
+          fields:
+            - name: "Collections"
+              value: "%names%"
+        no_collections: |
+          *There are no existing character collections. Use `/collection new` to create one.*
+
+    renamed:
+      - embed:
+          title: "Collection successfully renamed"
+          color: "%color.success%"
+          description: |
+            You renamed collection `%old_name%` to `%new_name%`.
+
+    removed:
+      - embed:
+          title: "Collection successflly removed"
+          color: "%color.success%"
+          description: |
+            You removed collection `%name%`. This operation cannot be undone :P
+
+    active_toggled:
+      - embed:
+          title: "Collection toggled"
+          color: "%color.success%"
+          description: >
+            You successfully toggled collection `%collection%` activated: %active%. When active, members can use
+            `/character roll` to roll for characters. Multiple collections can be activated at once. Use `/character
+            collection list` to see which are active and which are not.
+
+
+            You can use `/collection activate` to toggle it back.
+
+    error:
+      max_characters_claimed:
+        - embed:
+            title: "%emoji.error% You cannot claim any more characters"
+            color: "%color.error%"
+            description: |
+              You have reached the maximum character limit for this event.
+
+      none_left:
+        - embed:
+            title: "%emoji.error% No characters left"
+            color: "%color.error%"
+            description: |
+              There are no characters left for claim.
+
+      character_already_claimed:
+        - embed:
+            title: "%emoji.error% %character% is already claimed"
+            color: "%color.error%"
+            description: |
+              Wow, you're quite unfortunate. The only possible way you should be able to get this error message is if
+              someone else got the same character in the past 90 seconds and claimed before you did.
+
+              Here, have a lollipop 🍭
+
+      no_active_collections:
+        - embed:
+            title: "%emoji.error% Character collection is closed"
+            color: "%color.error%"
+            description: |
+              There are no active character collections. Check back next time ~
+
+      invalid_character_line:
+        - embed:
+            title: "%emoji.error% Invalid line"
+            color: "%color.error%"
+            description: "The following line could not be recognized as proper character data."
+            fields:
+              - name: "Line"
+                value: "```%line%```"
+                inline: false
+              - name: "Solution"
+                value: |
+                  To properly represent character data, format it as
+                  ```
+                  character name `picture-url` tier
+                  ```
+                  Two ticks (below your ESC key) wrap the picture URL and a space separates the name and picture.
+                inline: false
+              - name: "Examples"
+                value: |
+                  %s%%s%%bullet% Mr. Crabs `https://tinyurl.com/mrcrabspic` Rare
+                  %s%%s%%bullet% Spongebob Squarepants `https://tinyurl.com/spongepic` Legendary
+                inline: false
+
+      collection_already_exists:
+        - embed:
+            title: "%emoji.error% Collection already exists"
+            color: "%color.error%"
+            description: >
+              The collection `%name%` already exists. Choose a different name, use `/collection remove %name%`
+              to remove it, or use `/collection add %name%` to add characters to it.
+
+      collection_does_not_exist:
+        - embed:
+            title: "%emoji.error% Collection does not exist"
+            color: "%color.error%"
+            description: >
+              The collection `%name%` does not exist. Select an existing collection from `/collection list`
+              or create it using `/collection new %name%`.
 
   error:
     prompt_timeout:
@@ -1105,6 +373,7 @@ messages:
         - delete_after: 5
           embed:
             title: "%emoji.error% You exceeded the maximum time interval"
+            color: "%color.error%"
             description: "Please do not use a time interval that's longer than %range_display%."
     ignored_channel:
       - delete_after: 3
@@ -1116,7 +385,7 @@ messages:
       - embed:
           title: "%emoji.error% This command is on cooldown"
           color: "%color.error%"
-          description: "Please wait %seconds_left% more seconds before retrying this command."
+          description: "Please wait %interval% before retrying this command."
     command:
       - embed:
           title: "%emoji.error% Unrecognized Command"
@@ -1152,35 +421,11 @@ messages:
           description: |
             `%category%` is not a valid category.
             For a list of categories, use `%prefix%categories`
-    multiplier:
-      invalid:
-        - embed:
-            title: "%emoji.error% Invalid Multiplier"
-            color: "%color.error%"
-            description: |
-              `%multiplier%` is not a valid multiplier.
-              Please enter a float greater than or equal to 0 and at most 14641.
-      duration:
-        - embed:
-            title: "%emoji.error% Too Far in the Future"
-            color: "%color.error%"
-            description: |
-              That is too far in the future.
-
-              **The Maximum Duration (Currently):** %duration%.
-              **The Maximum Expiration Date:** %date%.
     not_in_rda:
       - embed:
           title: "%emoji.error% Not in RDA"
           color: "%color.error%"
           description: "You must be a member of Roblox Development Academy to execute this command."
-    teacher_only:
-      - embed:
-          title: "%emoji.error% You must be a teacher to do this"
-          color: "%color.error%"
-          description: |
-            You must have the Teacher role in Roblox Development Academy to perform this action.
-            You may apply to be Teacher with the `apply` command.
     report:
       - delete_after: 5
         embed:

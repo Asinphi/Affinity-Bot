@@ -131,7 +131,7 @@ class MessageNode:
     async def send(self, to, message_list=None, **placeholders):
         if len(self.args) == 0:
             return message_list
-        if isinstance(to, discord.abc.Messageable):
+        if hasattr(to, "send"):  # Duck type for SlashContext
             try:
                 msg = await to.send(**self.replace(**placeholders).args)
             except discord.Forbidden:

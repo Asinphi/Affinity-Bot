@@ -5,6 +5,10 @@ class NotInRDA(commands.CheckFailure):
     pass
 
 
+class FormatError(commands.CommandError):
+    pass
+
+
 class PromptError(commands.CommandError):
     pass
 

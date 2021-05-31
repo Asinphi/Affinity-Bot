@@ -10,3 +10,4 @@ python-dateutil
 python-dotenv
 discord
 psycopg2
+discord-py-slash-command

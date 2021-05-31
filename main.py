@@ -1,7 +1,11 @@
 import asyncio
 import re
+import traceback
 
 import uvicorn
+from discord_slash import SlashContext
+from discord_slash.model import SlashCommandPermissionType
+from discord_slash.utils.manage_commands import create_permission
 
 import bot
 from bot import *
@@ -12,10 +16,8 @@ async def run():
     await client.wait_until_ready()
     await asyncio.sleep(1)
     from cogs.admin import Admin
+    from cogs.characters import Characters
     from cogs.errorhandler import ErrorHandler
-    from cogs.level import Level
-    from cogs.report import Report
-    from cogs.reaction_roles import ReactionRoles
     from cogs import errorhandler
     import conditions
 
@@ -38,100 +40,112 @@ async def run():
             ON ignored_channels(guild_id)
             """,
             """
-            CREATE TABLE IF NOT EXISTS assignments (
-                assigner BIGINT NOT NULL,
+            CREATE TABLE IF NOT EXISTS character_collections (
+                name TEXT PRIMARY KEY UNIQUE NOT NULL,
+                is_active BOOLEAN DEFAULT FALSE
+            )
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS character_modules (
+                collection TEXT NOT NULL,
+                module TEXT NOT NULL,
+                submodule TEXT NOT NULL DEFAULT 'core',
+                PRIMARY KEY (collection, module, submodule),
+                FOREIGN KEY (collection) REFERENCES character_collections (name)
+                    ON DELETE CASCADE
+                    ON UPDATE CASCADE
+            )
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS character_rarity (
+                id SMALLINT PRIMARY KEY UNIQUE NOT NULL,
+                name TEXT UNIQUE NOT NULL,
+                probability REAL NOT NULL, -- Probability for the entire group to be selected
+                default_quantity SMALLINT DEFAULT -1,
+                color TEXT DEFAULT '0x9e33f3',
+                hidden BOOLEAN NOT NULL DEFAULT false
+            )
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS character_data (
+                collection TEXT NOT NULL,
+                id SERIAL UNIQUE NOT NULL,
                 name TEXT NOT NULL,
-                description BIGINT,
-                solution BIGINT,
-                delete_after_date BOOLEAN,
-                date TIMESTAMPTZ,
-                interval INTERVAL,
-                PRIMARY KEY (assigner, name)
+                picture TEXT,
+                rarity SMALLINT DEFAULT 1,
+                quantity SMALLINT,
+                PRIMARY KEY (collection, id),
+                FOREIGN KEY (collection) REFERENCES character_collections (name)
+                    ON DELETE CASCADE
+                    ON UPDATE CASCADE
+            );
+            
+            CREATE UNIQUE INDEX IF NOT EXISTS uniq_character_name ON character_data (collection, name);
+            
+            CREATE OR REPLACE FUNCTION trg_character_data_quantity_default()
+                RETURNS trigger
+                LANGUAGE plpgsql AS
+            $func$
+            BEGIN
+                IF NEW.rarity IS NULL THEN
+                    NEW.rarity := 1;
+                END IF;
+            
+                SELECT INTO NEW.quantity  character_rarity.default_quantity
+                FROM   character_rarity
+                WHERE  character_rarity.id = NEW.rarity;
+                RETURN NEW;
+            END
+            $func$;
+            
+            DROP TRIGGER IF EXISTS character_data_quantity_default ON character_data;
+            
+            CREATE TRIGGER character_data_quantity_default
+            BEFORE INSERT ON character_data
+            FOR EACH ROW
+            WHEN (NEW.quantity IS NULL)
+            EXECUTE PROCEDURE trg_character_data_quantity_default();
+            """,
+            """
+            CREATE INDEX IF NOT EXISTS idx_character_name
+            ON character_data(name)
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS member_characters (
+                member_id BIGINT NOT NULL,
+                collection TEXT NOT NULL,
+                character_id INTEGER,
+                PRIMARY KEY (member_id, collection),
+                FOREIGN KEY (collection, character_id) REFERENCES character_data(collection, id)
+                    ON DELETE CASCADE
+                    ON UPDATE CASCADE
             )
             """,
             """
-            CREATE TABLE IF NOT EXISTS submissions (
-                submitter BIGINT NOT NULL,
-                assigner BIGINT NOT NULL,
-                name TEXT NOT NULL,
-                submitted_at TIMESTAMPTZ NOT NULL,
-                PRIMARY KEY (submitter, assigner, name),
-                CONSTRAINT fk_assignment FOREIGN KEY(assigner, name) REFERENCES assignments(assigner, name)
-                ON DELETE CASCADE
-            )
+            CREATE INDEX IF NOT EXISTS idx_character_id
+            ON member_characters(character_id)
             """,
             """
-            CREATE TABLE IF NOT EXISTS classes (
-                teacher BIGINT NOT NULL,
-                name TEXT NOT NULL,
-                message BIGINT,
-                guild BIGINT,
-                channel BOOLEAN,
-                voice_channel BOOLEAN,
-                starting_at TIMESTAMPTZ NOT NULL,
-                PRIMARY KEY (teacher, name)
-            )
-            """,
-            """
-            CREATE TABLE IF NOT EXISTS categories (
-                id SERIAL PRIMARY KEY UNIQUE NOT NULL,
-                name VARCHAR(100) UNIQUE,
-                exp_rate REAL DEFAULT 11
-            )
-            """,
-            """
-            CREATE TABLE IF NOT EXISTS levels (
-                user_id BIGINT NOT NULL,
-                category_id INTEGER NOT NULL,
-                exp REAL DEFAULT '0',
-                PRIMARY KEY (user_id, category_id),
-                FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE
-            )
-            """,
-            """
-            CREATE INDEX IF NOT EXISTS idx_leaderboard
-            ON levels (category_id, exp DESC)
-            """,
-            """
-            CREATE TABLE IF NOT EXISTS multipliers (
-                user_id BIGINT,
-                multiplier REAL NOT NULL,
-                end_time TIMESTAMPTZ
-            )
-            """,
-            """
-            CREATE INDEX IF NOT EXISTS idx_multipliers
-            ON multipliers (user_id)
-            """
-        )
-        upsert_statements = (
-            """
-            INSERT INTO categories (name)
+            INSERT INTO character_rarity (id, name, probability, default_quantity, color, hidden)
             VALUES
-                ('Scripting'),
-                ('Animation'),
-                ('Modeling'),
-                ('Building'),
-                ('GFX'),
-                ('Audio Engineering')
-            ON CONFLICT (name) DO NOTHING
-            """,
+                (0, 'Trash', 1.0, -1, '0xd9d9d9', false),
+                (1, 'Common', 0.3, 4, '0x19e320', false),
+                (2, 'Uncommon', 0.3, 3, '0x1ae5e8', false),
+                (3, 'Rare', 0.2, 2, '0x139ded', false),
+                (4, 'Legendary', 0.05, 1, '0xe6c50e', false),
+                (5, 'Mythical', 0.01, 1, '0xed201c', true)
+            ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name, probability=EXCLUDED.probability,
+            default_quantity=EXCLUDED.default_quantity, color=EXCLUDED.color, hidden=EXCLUDED.hidden
+            """
         )
         for statement in statements:
-            database.update(statement)
-        for statement in upsert_statements:
             database.update(statement)
 
     generate_tables()
 
     client.add_cog(ErrorHandler())
     client.add_cog(Admin())
-    client.add_cog(Level())
-    client.add_cog(Report())
-    client.add_cog(ReactionRoles())
-    client.load_extension('cmds.apply')
-    client.load_extension('cmds.homework')
-    client.load_extension('cmds.class')
+    client.add_cog(Characters())
 
     @client.check
     async def globally_ignore_channels(ctx):
@@ -205,34 +219,38 @@ async def run():
     @conditions.manager_only()
     async def execute(ctx: commands.Context):
         content = ctx.message.content
-        matcher = re.compile(r'```\w+$(.+)```', re.MULTILINE | re.DOTALL)
+        matcher = re.compile(r'(-s)?\s*```\w+$(.+)```', re.MULTILINE | re.DOTALL)
         code = matcher.search(content)
         if code:
             try:
-                exec(f"async def __ex(ctx, {','.join(globals().keys())}):\n  " + '\n  '.join(code.group(1).split('\n')))
-                result = await locals()['__ex'](ctx, **globals())
+                exec(f"async def __ex(ctx):\n  " + '\n  '.join(code.group(2).split('\n')),
+                     {**globals(), **locals()}, locals())
+                result = await locals()['__ex'](ctx)
                 await ctx.message.add_reaction(lang.global_placeholders['emoji.gotcha'])
             except Exception as e:
-                await ctx.send(str(e))
+                await ctx.send(f"```{traceback.format_exc()}```" if code.group(1) else str(e))
                 await ctx.message.add_reaction(lang.global_placeholders['emoji.error'])
         else:
             await ctx.message.add_reaction(lang.global_placeholders['emoji.no'])
 
-    @client.command()
-    @conditions.manager_only()
-    async def setup(ctx: commands.Context, info_channel: discord.TextChannel):
-        messages = [(await node.send(info_channel, classes_channel=bot.channels['class'].mention,
-                                     commands_channel=bot.channels['bot'].mention, mutate=True))
-                    for node in lang.get('info_channel').nodes[:-1]]
-        links = {"link" + str(i): messages[msg_i].jump_url for i, msg_i in zip(range(7), (1, 2, 4, 6, 8, 10, 12))}
-        await lang.get('info_channel').nodes[-1].send(info_channel, **links)
-        await ReactionRoles.add_msg('profession', messages[11])
-        for i in range(13, 17):
-            await ReactionRoles.add_msg('settings', messages[i], i - 13)
-        await ctx.message.add_reaction(lang.global_placeholders['emoji.gotcha'])
+    @slash.slash(name="test", guild_ids=[bot.rda.id],
+                 default_permission=False,
+                 permissions={
+                     bot.rda.id: [
+                         create_permission(bot.roles['owner'].id, SlashCommandPermissionType.ROLE, True),
+                         create_permission(bot.roles['high_admin'].id, SlashCommandPermissionType.ROLE, True)
+                     ]
+                 }
+                 )
+    async def _test(ctx: SlashContext):
+        embed = discord.Embed(title="embed test")
+        await ctx.send(content="test", embeds=[embed])
+
+    await slash.sync_all_commands()
+
 
 loop = asyncio.get_event_loop()
 loop.create_task(run())
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=5000)
+    uvicorn.run("main:app", host="0.0.0.0", port=9000)
