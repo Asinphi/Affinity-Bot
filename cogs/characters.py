@@ -265,7 +265,8 @@ class Characters(commands.Cog):
                     (tier_id,)
                 ).fetchall()
                 if len(pool) > 0:
-                    embed.add_field(name=star_str, value="\n".join(f"{name} x {quantity}" for name, quantity in pool))
+                    embed.add_field(name=star_str, value="\n"
+                                    .join(f"{name} x {quantity if quantity != -1 else '♾'}" for name, quantity in pool))
         await node.send(ctx)
 
     @cog_subcommand(base="collection", name="new", guild_ids=slash_guild(),
