@@ -143,7 +143,7 @@ messages:
             **%collection% Character** %stars%
 
 
-            There's only **%quantity%** left! You have 90 seconds to use `/character claim` before it expires!
+            There's **%quantity%** left! You have 90 seconds to use `/character claim` before it expires!
             Once you have claimed a character, it cannot be undone.
 
 
@@ -218,8 +218,9 @@ messages:
       - embed:
           title: "Character Collections"
           color: "%color.info%"
-          description: |
-            **Bold** collections are active, meaning players can roll for their characters.
+          description: >
+            **Bold** collections are active, meaning players can roll for their characters. Use `/collection activate`
+            to activate or deactivate collections.
           fields:
             - name: "Collections"
               value: "%names%"
@@ -288,7 +289,8 @@ messages:
         - embed:
             title: "%emoji.error% Invalid line"
             color: "%color.error%"
-            description: "The following line could not be recognized as proper character data."
+            description: >
+              The following line could not be recognized as proper character data. Please re-execute the command.
             fields:
               - name: "Line"
                 value: "```%line%```"
