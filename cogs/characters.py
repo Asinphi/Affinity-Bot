@@ -167,13 +167,13 @@ class Characters(commands.Cog):
             ORDER BY id DESC
             """
         ).fetchall()])
-        hidden_tiers = [database.query(
+        hidden_tiers = [name[0] for name in database.query(
             """
             SELECT name
             FROM character_rarity
             WHERE hidden = true
             """
-        )]
+        ).fetchall()]
 
     @cog_subcommand(base="character", name="roll", guild_ids=slash_guild(),
                     base_desc="Play as your favorite characters",
@@ -378,6 +378,7 @@ class Characters(commands.Cog):
         if database.cursor.rowcount == 0:
             await lang.get('characters.error.collection_does_not_exist').send(ctx, name=collection_name)
             return
+        active_collection_names.discard(f"'{collection_name}'")
         await lang.get('characters.removed').send(ctx, name=collection_name)
 
     @cog_subcommand(base="collection", name="activate", guild_ids=slash_guild(),
