@@ -39,7 +39,7 @@ def add_characters_from_str(collection: str, character_data: str):
         match = re.match(fr"(?P<name>\S[a-zA-Z ']*[a-zA-Z'])"
                          fr'( `(?P<picture>\S+)`)?'
                          fr'( (?P<rarity>{"|".join(character_tiers.keys())}))?'
-                         fr'( (?P<quantity>-?\d+))?', line)
+                         fr'( (?P<quantity>-?\d+))?$', line)
         if not match:
             raise errors.FormatError(line)
         name = match.group("name")
@@ -50,8 +50,8 @@ def add_characters_from_str(collection: str, character_data: str):
         tiers.append(match.group('rarity'))
         quantities.append(match.group('quantity'))
     args_str = ",".join(database.cursor.mogrify(f"('{collection}',%s,%s,%s,%s)",
-                                                (name, picture, character_tiers[tier][0], quantity)).decode("utf-8")
-                        for name, picture, tier, quantity in zip(names, pictures, tiers, quantities))
+                                                (name, picture, character_tiers[tier or "Common"][0], quantity))
+                        .decode("utf-8") for name, picture, tier, quantity in zip(names, pictures, tiers, quantities))
     try:
         database.update(
             f"""
@@ -258,7 +258,7 @@ class Characters(commands.Cog):
                     f"""
                     SELECT name, quantity
                     FROM character_data
-                    WHERE quantity > 0 AND collection in ({','.join(active_collection_names)})
+                    WHERE quantity != 0 AND collection in ({','.join(active_collection_names)})
                     AND rarity = %s
                     """,
                     (tier_id,)
@@ -408,7 +408,7 @@ class Characters(commands.Cog):
             await lang.get('characters.error.collection_does_not_exist').send(ctx, name=collection_name)
             return
         if activate:
-            active_collection_names.add(f"'collection_id'")
+            active_collection_names.add(f"'f{collection_id}'")
         else:
             active_collection_names.discard(f"'{collection_id}'")
         await lang.get('characters.active_toggled').send(ctx, collection=collection_name, active=activate)
