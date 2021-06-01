@@ -181,6 +181,8 @@ messages:
               ```
               Two ticks (below your ESC key) wrap the picture URL and a space separates the name and picture.
               %prompt.cancel%
+            footer:
+              text: "%prompt.respond_5m%"
             fields:
               - name: "Examples"
                 value: |
