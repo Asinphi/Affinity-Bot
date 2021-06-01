@@ -41,10 +41,9 @@ def update(*args, many: bool = False):
             cursor.executemany(*args)
         connection.commit()
         return cursor
-    except psycopg2.errors.SyntaxError as e:
-        if IS_DEBUG:
-            logger.error(traceback.format_exc() + "\n" + args[0])
-    except psycopg2.DatabaseError as e:
+    except psycopg2.errors.SyntaxError:
+        logger.error(traceback.format_exc() + "\n" + args[0])
+    except psycopg2.DatabaseError:
         if IS_DEBUG:
             logger.error(traceback.format_exc())
             return
