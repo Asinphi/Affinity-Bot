@@ -1,3 +1,4 @@
+import copy
 import re
 from typing import List, Dict, Tuple, Set
 from datetime import timedelta, datetime
@@ -237,7 +238,7 @@ class Characters(commands.Cog):
         if len(active_collection_names) == 0:
             await lang.get('characters.error.no_active_collections').send(ctx)
             return
-        node = lang.get('characters.list')
+        node = copy.deepcopy(lang.get('characters.list'))
         embed: discord.Embed = node.nodes[0].args['embed']
         for i, (rarity, (tier_id, _)) in enumerate(character_tiers.items()):
             star_str = "★" * (len(character_tiers) - i)
