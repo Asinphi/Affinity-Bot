@@ -204,6 +204,7 @@ class Characters(commands.Cog):
             await lang.get('characters.error.none_left').send(ctx)
             return
         star_str = "★" * num_stars
+        quantity = quantity if quantity != -1 else '♾'
         node = lang.get('characters.rolled').replace(collection=collection, character=name, picture=picture,
                                                      quantity=quantity, color=color, stars=star_str)
         node.nodes[0].args['embed'].colour = discord.Colour(int(color, 16))
@@ -242,31 +243,19 @@ class Characters(commands.Cog):
         embed: discord.Embed = node.nodes[0].args['embed']
         for i, (rarity, (tier_id, _)) in enumerate(character_tiers.items()):
             star_str = "★" * (len(character_tiers) - i)
-            if rarity in hidden_tiers:
-                total_quantity = database.query(
-                    f"""
-                    SELECT COALESCE(SUM(quantity), 0)
-                    FROM character_data
-                    WHERE quantity > 0 AND collection in ({','.join(active_collection_names)})
-                    AND rarity = %s
-                    """,
-                    (rarity,)
-                ).fetchone()[0]
-                if total_quantity > 0:
-                    embed.add_field(name=star_str, value=f"??? x {total_quantity}")
-            else:
-                pool = database.query(
-                    f"""
-                    SELECT name, quantity
-                    FROM character_data
-                    WHERE quantity != 0 AND collection in ({','.join(active_collection_names)})
-                    AND rarity = %s
-                    """,
-                    (tier_id,)
-                ).fetchall()
-                if len(pool) > 0:
-                    embed.add_field(name=star_str, value="\n"
-                                    .join(f"{name} x {quantity if quantity != -1 else '♾'}" for name, quantity in pool))
+            pool = database.query(
+                f"""
+                SELECT name, quantity
+                FROM character_data
+                WHERE quantity != 0 AND collection in ({','.join(active_collection_names)})
+                AND rarity = %s
+                """,
+                (tier_id,)
+            ).fetchall()
+            if len(pool) > 0:
+                embed.add_field(name=star_str, value="\n"
+                                .join(f"{name if rarity not in hidden_tiers else '???'} "
+                                      f"x {quantity if quantity != -1 else '♾'}" for name, quantity in pool))
         await node.send(ctx)
 
     @cog_subcommand(base="collection", name="new", guild_ids=slash_guild(),
