@@ -3,9 +3,6 @@ import re
 import traceback
 
 import uvicorn
-from discord_slash import SlashContext
-from discord_slash.model import SlashCommandPermissionType
-from discord_slash.utils.manage_commands import create_permission
 
 import bot
 from bot import *
@@ -232,19 +229,6 @@ async def run():
                 await ctx.message.add_reaction(lang.global_placeholders['emoji.error'])
         else:
             await ctx.message.add_reaction(lang.global_placeholders['emoji.no'])
-
-    @slash.slash(name="test", guild_ids=[bot.rda.id],
-                 default_permission=False,
-                 permissions={
-                     bot.rda.id: [
-                         create_permission(bot.roles['owner'].id, SlashCommandPermissionType.ROLE, True),
-                         create_permission(bot.roles['high_admin'].id, SlashCommandPermissionType.ROLE, True)
-                     ]
-                 }
-                 )
-    async def _test(ctx: SlashContext):
-        embed = discord.Embed(title="embed test")
-        await ctx.send(content="test", embeds=[embed])
 
     await slash.sync_all_commands()
 
