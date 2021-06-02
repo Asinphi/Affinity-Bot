@@ -126,8 +126,8 @@ async def run():
             INSERT INTO character_rarity (id, name, probability, default_quantity, color, hidden)
             VALUES
                 (0, 'Trash', 1.0, -1, '0xd9d9d9', false),
-                (1, 'Common', 0.3, 4, '0x19e320', false),
-                (2, 'Uncommon', 0.3, 3, '0x1ae5e8', false),
+                (1, 'Common', 0.3, 2, '0x19e320', false),
+                (2, 'Uncommon', 0.3, 2, '0x1ae5e8', false),
                 (3, 'Rare', 0.2, 2, '0x139ded', false),
                 (4, 'Legendary', 0.05, 1, '0xe6c50e', false),
                 (5, 'Mythical', 0.01, 1, '0xed201c', true)
