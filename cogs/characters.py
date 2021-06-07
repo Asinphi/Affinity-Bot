@@ -266,8 +266,7 @@ class Characters(commands.Cog):
                     base_permissions={
                         rda.id: [
                             create_permission(roles['owner'].id, SlashCommandPermissionType.ROLE, True),
-                            create_permission(roles['high_admin'].id, SlashCommandPermissionType.ROLE, True),
-                            create_permission(roles['everyone'].id, SlashCommandPermissionType.ROLE, False)
+                            create_permission(roles['high_admin'].id, SlashCommandPermissionType.ROLE, True)
                         ]
                     },
                     options=[
