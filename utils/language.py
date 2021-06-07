@@ -25,7 +25,7 @@ class MessageNode:
                 self.options[key] = value
 
     @classmethod
-    async def from_message(cls, message: discord.Message):
+    async def from_message(cls, message: discord.Message, include_reactions=False):
         serialized = {'content': message.content, 'tts': message.tts, 'nonce': message.nonce,
                       'embed': message.embeds[0] if message.embeds else None}
         if message.embeds and isinstance(message.embeds[0].timestamp, datetime):
@@ -38,6 +38,9 @@ class MessageNode:
                 serialized['files'] = files
             else:
                 serialized['file'] = files[0]
+
+        if include_reactions:
+            serialized['reactions'] = [str(reaction.emoji) for reaction in message.reactions]
 
         return cls(**serialized)
 
@@ -156,10 +159,16 @@ class MessageNode:
                     pass
             return message_list
 
-    async def edit(self, message, **placeholders):
+    async def edit(self, message, remove_reactions=False, **placeholders):
         msg = await message.edit(**self.replace(**placeholders).args)
 
         reactions = self.args.get('reactions')
+
+        if remove_reactions:
+            for current_reaction in message.reactions:
+                if current_reaction.me and current_reaction.emoji not in reactions:
+                    await current_reaction.remove(LangManager.bot.user)
+
         if reactions:
             for reaction in reactions:
                 await msg.add_reaction(reaction)
