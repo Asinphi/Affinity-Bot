@@ -37,7 +37,7 @@ def add_characters_from_str(collection: str, character_data: str):
     for line in character_lines:
         if len(line) < 2:
             continue
-        match = re.match(fr"(?P<name>\S[a-zA-Z ']*[a-zA-Z'])"
+        match = re.match(fr"(?P<name>\S[a-zA-Z \-'()\d]*[a-zA-Z'.\d)])"
                          fr'( `(?P<picture>\S+)`)?'
                          fr'( (?P<rarity>{"|".join(map(str, character_tiers.keys()))}))?'
                          fr'( (?P<quantity>-?\d+))?$', line)
