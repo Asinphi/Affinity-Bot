@@ -1,6 +1,6 @@
 import copy
 import re
-from typing import List, Dict, Tuple, Set
+from typing import List, Dict, Set, Union, Optional
 from datetime import timedelta, datetime
 from collections import OrderedDict
 import random
@@ -21,8 +21,8 @@ from utils.event import Event
 
 
 active_collection_names: Set[str] = set()
-character_tiers: OrderedDict[str, Tuple[int, float]]  # Name to id and probability
-hidden_tiers: List[str]
+character_tiers: OrderedDict[int, float]  # num_stars to probability
+hidden_tiers: List[int]
 latest_rolls: Dict[int, datetime] = {}
 character_claiming_event = Event()
 character_claimed_event = Event()
@@ -39,7 +39,7 @@ def add_characters_from_str(collection: str, character_data: str):
             continue
         match = re.match(fr"(?P<name>\S[a-zA-Z ']*[a-zA-Z'])"
                          fr'( `(?P<picture>\S+)`)?'
-                         fr'( (?P<rarity>{"|".join(character_tiers.keys())}))?'
+                         fr'( (?P<rarity>{"|".join(map(str, character_tiers.keys()))}))?'
                          fr'( (?P<quantity>-?\d+))?$', line)
         if not match:
             raise errors.FormatError(line)
@@ -51,7 +51,7 @@ def add_characters_from_str(collection: str, character_data: str):
         tiers.append(match.group('rarity'))
         quantities.append(match.group('quantity'))
     args_str = ",".join(database.cursor.mogrify(f"('{collection}',%s,%s,%s,%s)",
-                                                (name, picture, character_tiers[tier or "Common"][0], quantity))
+                                                (name, picture, tier, quantity))
                         .decode("utf-8") for name, picture, tier, quantity in zip(names, pictures, tiers, quantities))
     try:
         database.update(
@@ -89,25 +89,23 @@ async def prompt_character_add(ctx: SlashContext, collection_name):
 def roll_character(user_id: int):
     n = random.random()
     n_total = 0
-    num_stars = len(character_tiers)
     last_pool = None
     row = None
-    for tier, (tier_id, probability) in character_tiers.items():
+    for tier, probability in character_tiers.items():
         pool = database.query(
             f"""
             SELECT character_data.id, collection, character_data.name, picture, quantity, color
-            FROM character_data INNER JOIN character_rarity ON (character_rarity.id = character_data.rarity)
-            WHERE quantity != 0 AND character_data.rarity = {tier_id}
+            FROM character_data INNER JOIN character_rarity ON (character_rarity.num_stars = character_data.rarity)
+            WHERE quantity != 0 AND character_data.rarity = {tier}
             AND collection in ({','.join(active_collection_names)})
             """
         ).fetchall()
         if len(pool) > 0:
             n_total += probability
             if n_total > n:
-                row = (*random.choice(pool), num_stars)
+                row = (*random.choice(pool), tier)
                 break
-            last_pool = (pool, num_stars)
-        num_stars -= 1
+            last_pool = (pool, tier)
     if not row:
         if last_pool is None:
             return None
@@ -160,16 +158,16 @@ class Characters(commands.Cog):
             WHERE is_active = true
             """
         ).fetchall()}
-        character_tiers = OrderedDict([(name, (tier_id, probability)) for name, tier_id, probability in database.query(
+        character_tiers = OrderedDict([(tier, probability) for tier, probability in database.query(
             """
-            SELECT name, id, probability
+            SELECT num_stars, probability
             FROM character_rarity
-            ORDER BY id DESC
+            ORDER BY num_stars DESC
             """
         ).fetchall()])
         hidden_tiers = [name[0] for name in database.query(
             """
-            SELECT name
+            SELECT num_stars
             FROM character_rarity
             WHERE hidden = true
             """
@@ -244,8 +242,8 @@ class Characters(commands.Cog):
             return
         node = copy.deepcopy(lang.get('characters.list'))
         embed: discord.Embed = node.nodes[0].args['embed']
-        for i, (rarity, (tier_id, _)) in enumerate(character_tiers.items()):
-            star_str = "★" * (len(character_tiers) - i)
+        for tier in character_tiers.keys():
+            star_str = "★" * tier
             pool = database.query(
                 f"""
                 SELECT name, quantity
@@ -253,11 +251,11 @@ class Characters(commands.Cog):
                 WHERE quantity != 0 AND collection in ({','.join(active_collection_names)})
                 AND rarity = %s
                 """,
-                (tier_id,)
+                (tier,)
             ).fetchall()
             if len(pool) > 0:
                 embed.add_field(name=star_str, value="\n"
-                                .join(f"{name if rarity not in hidden_tiers else '???'} "
+                                .join(f"{name if tier not in hidden_tiers else '???'} "
                                       f"x {quantity if quantity != -1 else '♾'}" for name, quantity in pool))
         await node.send(ctx)
 

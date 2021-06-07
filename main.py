@@ -55,8 +55,7 @@ async def run():
             """,
             """
             CREATE TABLE IF NOT EXISTS character_rarity (
-                id SMALLINT PRIMARY KEY UNIQUE NOT NULL,
-                name TEXT UNIQUE NOT NULL,
+                num_stars SMALLINT PRIMARY KEY UNIQUE NOT NULL,
                 probability REAL NOT NULL, -- Probability for the entire group to be selected
                 default_quantity SMALLINT DEFAULT -1,
                 color TEXT DEFAULT '0x9e33f3',
@@ -69,34 +68,39 @@ async def run():
                 id SERIAL UNIQUE NOT NULL,
                 name TEXT NOT NULL,
                 picture TEXT,
-                rarity SMALLINT DEFAULT 1,
+                rarity SMALLINT DEFAULT 2,
                 quantity SMALLINT,
                 PRIMARY KEY (collection, id),
                 FOREIGN KEY (collection) REFERENCES character_collections (name)
                     ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                    ON UPDATE CASCADE,
+                FOREIGN KEY (rarity) REFERENCES character_rarity (num_stars)
             );
-            
+            """,
+            """
             CREATE UNIQUE INDEX IF NOT EXISTS uniq_character_name ON character_data (collection, name);
-            
+            """,
+            """
             CREATE OR REPLACE FUNCTION trg_character_data_quantity_default()
                 RETURNS trigger
                 LANGUAGE plpgsql AS
             $func$
             BEGIN
                 IF NEW.rarity IS NULL THEN
-                    NEW.rarity := 1;
+                    NEW.rarity := 2;
                 END IF;
             
                 SELECT INTO NEW.quantity  character_rarity.default_quantity
                 FROM   character_rarity
-                WHERE  character_rarity.id = NEW.rarity;
+                WHERE  character_rarity.num_stars = NEW.rarity;
                 RETURN NEW;
             END
             $func$;
-            
+            """,
+            """
             DROP TRIGGER IF EXISTS character_data_quantity_default ON character_data;
-            
+            """,
+            """
             CREATE TRIGGER character_data_quantity_default
             BEFORE INSERT ON character_data
             FOR EACH ROW
@@ -123,22 +127,23 @@ async def run():
             ON member_characters(character_id)
             """,
             """
-            INSERT INTO character_rarity (id, name, probability, default_quantity, color, hidden)
+            INSERT INTO character_rarity (num_stars, probability, default_quantity, color, hidden)
             VALUES
-                (0, 'Trash', 1.0, -1, '0xd9d9d9', false),
-                (1, 'Common', 0.3, 2, '0x19e320', false),
-                (2, 'Uncommon', 0.3, 2, '0x1ae5e8', false),
-                (3, 'Rare', 0.2, 2, '0x139ded', false),
-                (4, 'Legendary', 0.05, 1, '0xe6c50e', false),
-                (5, 'Mythical', 0.01, 1, '0xed201c', true)
-            ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name, probability=EXCLUDED.probability,
+                (1, 1.0, -1, '0xd9d9d9', false),
+                (2, 0.3, 2, '0x19e320', false),
+                (3, 0.3, 2, '0x1ae5e8', false),
+                (4, 0.2, 2, '0x139ded', false),
+                (5, 0.05, 1, '0xe6c50e', false),
+                (6, 0.01, 1, '0xed201c', true)
+            ON CONFLICT (num_stars) DO UPDATE SET  probability=EXCLUDED.probability,
             default_quantity=EXCLUDED.default_quantity, color=EXCLUDED.color, hidden=EXCLUDED.hidden
             """
         )
         for statement in statements:
             database.update(statement)
 
-    generate_tables()
+    # generate_tables()
+    # The DROP TRIGGER update will block if Silly Franky made a query to character_data in the other connection
 
     client.add_cog(ErrorHandler())
     client.add_cog(Admin())
