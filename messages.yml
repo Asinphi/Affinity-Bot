@@ -205,17 +205,17 @@ messages:
             fields:
               - name: "Examples"
                 value: |
-                  %s%%s%%bullet% Mr. Crabs `https://tinyurl.com/mrcrabspic` Rare
-                  %s%%s%%bullet% Spongebob Squarepants `https://tinyurl.com/spongepic` Legendary
+                  %s%%s%%bullet% Mr. Crabs `https://tinyurl.com/mrcrabspic` 4
+                  %s%%s%%bullet% Spongebob Squarepants `https://tinyurl.com/spongepic` 5
                 inline: false
               - name: "Tiers"
                 value: |
-                  %s%%s%%bullet% Mythical: 1%, x1 (secret hidden tier)
-                  %s%%s%%bullet% Legendary: 5%, x1
-                  %s%%s%%bullet% Rare: 20%, x2
-                  %s%%s%%bullet% Uncommon: 30%, x3
-                  %s%%s%%bullet% Common: 30%, x4 (yes, I know - it's a gacha game design psychological thing)
-                  %s%%s%%bullet% Trash: 14%, infinite (will be higher when other tiers run out of characters)
+                  %s%%s%%bullet% 6: 1%, x1 (secret hidden tier)
+                  %s%%s%%bullet% 5: 5%, x1
+                  %s%%s%%bullet% 4: 20%, x2
+                  %s%%s%%bullet% 3: 30%, x3
+                  %s%%s%%bullet% 2: 30%, x4 (yes, I know - it's a gacha game design psychological thing)
+                  %s%%s%%bullet% 1: 14%, infinite (will be higher when other tiers run out of characters)
 
                   Probabilities refer to the probability for the entire group, not individuals.
                   Quantites are per character.
@@ -342,8 +342,8 @@ messages:
                 inline: false
               - name: "Examples"
                 value: |
-                  %s%%s%%bullet% Mr. Crabs `https://tinyurl.com/mrcrabspic` Rare
-                  %s%%s%%bullet% Spongebob Squarepants `https://tinyurl.com/spongepic` Legendary
+                  %s%%s%%bullet% Mr. Crabs `https://tinyurl.com/mrcrabspic` 4
+                  %s%%s%%bullet% Spongebob Squarepants `https://tinyurl.com/spongepic` 5
                 inline: false
 
       collection_already_exists:
