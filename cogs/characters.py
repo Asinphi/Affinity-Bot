@@ -8,10 +8,11 @@ import asyncio
 
 import psycopg2
 from discord_slash import SlashContext
-from discord_slash.cog_ext import cog_subcommand
+from discord_slash.cog_ext import cog_subcommand, cog_slash
 from discord_slash.utils.manage_commands import create_option, create_permission
 from discord_slash.model import SlashCommandOptionType, SlashCommandPermissionType
 
+import events
 from bot import *
 import errors
 from cogs import errorhandler
@@ -148,6 +149,33 @@ def roll_character(user_id: int):
     return row
 
 
+async def character_page(ctx: Union[discord.Message, SlashContext], page_num: Optional[int], user: discord.User,
+                         sender: discord.User):
+    characters = database.query(
+        """
+        SELECT character_data.collection, name, picture, rarity
+        FROM character_data INNER JOIN member_characters ON (character_data.id = member_characters.character_id)
+        WHERE member_id = %s
+        ORDER BY character_id DESC
+        """,
+        (user.id,)
+    ).fetchall()
+    last_page = len(characters)
+    page_num = page_num or last_page
+    try:
+        collection, name, picture, tier = characters[page_num - 1]
+    except IndexError:
+        await lang.get('characters.error.user_has_no_characters').send(ctx, user=user.mention)
+        return
+    node = lang.get('characters.owned').replace(page=page_num, last=last_page, collection=collection, name=name,
+                                                picture=picture, tier=tier, stars="★" * tier,
+                                                sender=str(sender), user=user.mention)
+    if isinstance(ctx, discord.Message):
+        await node.nodes[0].edit(ctx)
+    else:
+        await node.send(ctx)
+
+
 class Characters(commands.Cog):
     def __init__(self):
         global active_collection_names, character_tiers, hidden_tiers
@@ -172,6 +200,29 @@ class Characters(commands.Cog):
             WHERE hidden = true
             """
         ).fetchall()]
+
+        @events.page_action
+        async def page_character(page: int, title: str, user: discord.User, reaction: discord.Reaction):
+            if title != lang.get('characters.owned').nodes[-1].args['embed'].title:
+                return
+            match = re.match(r'<@\d{17,}>', reaction.message.embeds[-1].description)
+            ctx = commands.Context(bot=client, message=reaction.message, prefix=':P')
+            await character_page(reaction.message, page, await commands.UserConverter().convert(ctx, match.group(0)),
+                                 user)
+
+    @cog_slash(name="characters", guild_ids=slash_guild(),
+               description="View your claimed characters", default_permission=True,
+               options=[
+                   create_option(
+                       name="user",
+                       description="The user whose character collection you want to view if not your own",
+                       option_type=SlashCommandOptionType.USER,
+                       required=False
+                   )
+               ]
+               )
+    async def character_view(self, ctx: SlashContext, user: Optional[discord.User] = None):
+        await character_page(ctx, 1, user or ctx.author, ctx.author)
 
     @cog_subcommand(base="character", name="roll", guild_ids=slash_guild(),
                     base_desc="Play as your favorite characters",

@@ -135,6 +135,25 @@ messages:
           color: "%color.info%"
 
   characters:
+    owned:
+      - embed:
+          title: "Character Collection"
+          color: "%color.info%"
+          description: |
+            %user%'s characters
+
+            __**%name%**__
+            %collection% Character %stars%
+          image:
+            url: "%picture%"
+          footer:
+            text: "Page %page% of %last%  %sender%"
+        reactions:
+          - "%emoji.rewind%"
+          - "%emoji.previous%"
+          - "%emoji.next%"
+          - "%emoji.fast_forward%"
+
     rolled:
       - embed:
           title: "%character%"
@@ -254,6 +273,13 @@ messages:
             You can use `/collection activate` to toggle it back.
 
     error:
+      user_has_no_characters:
+        - embed:
+            title: "%emoji.error% This user has no characters"
+            color: "%color.info%"
+            description: |
+              %user% has no characters in their collection.
+
       max_characters_claimed:
         - embed:
             title: "%emoji.error% You cannot claim any more characters"

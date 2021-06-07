@@ -5,6 +5,7 @@ import traceback
 import uvicorn
 
 import bot
+import events
 from bot import *
 from web.app import app
 
@@ -234,6 +235,39 @@ async def run():
                 await ctx.message.add_reaction(lang.global_placeholders['emoji.error'])
         else:
             await ctx.message.add_reaction(lang.global_placeholders['emoji.no'])
+
+    page_buttons = {
+        lang.global_placeholders['emoji.next']: lambda page, last: page + 1 if page != last else 1,
+        lang.global_placeholders['emoji.previous']: lambda page, last: page - 1 if page != 1 else last,
+        lang.global_placeholders['emoji.rewind']: lambda page, last: 1,
+        lang.global_placeholders['emoji.fast_forward']: lambda page, last: last
+    }
+
+    @client.event
+    async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
+        msg: discord.Message = reaction.message
+        if msg.author != client.user or not msg.embeds:
+            return
+        action = page_buttons.get(reaction.emoji)
+        if not action:
+            return
+        embed: discord.Embed = msg.embeds[-1]
+        if not embed.footer:
+            return
+        # TODO - Implement MessageReferences (replied to) author instead of user in footer
+        match = re.match(r'Page (?P<page>\d+)( of (?P<last>\d+))?\s+(?P<user>[^#@]{2,32}#\d\d\d\d)', embed.footer.text)
+        if not match or str(user) != match.group("user"):
+            return
+
+        try:
+            asyncio.create_task(reaction.remove(user))
+        except discord.Forbidden:
+            pass
+        old_page = int(match.group('page'))
+        new_page = action(old_page, int(match.group('last')))
+        if new_page == old_page:  # Possible if there was only one page
+            return
+        await events.page_action.fire(new_page, embed.title, user, reaction)
 
     await slash.sync_all_commands()
 
