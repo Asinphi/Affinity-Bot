@@ -236,7 +236,7 @@ messages:
 
     removed:
       - embed:
-          title: "Collection successflly removed"
+          title: "Collection successfully removed"
           color: "%color.success%"
           description: |
             You removed collection `%name%`. This operation cannot be undone :P
