@@ -8,7 +8,7 @@ import discord
 
 
 class MessageNode:
-    send_args = ('content', 'tts', 'embed', 'file', 'files', 'nonce', 'delete_after', 'allowed_mentions')
+    send_args = ('content', 'tts', 'embed', 'file', 'files', 'nonce', 'delete_after', 'allowed_mentions', 'components')
 
     def __init__(self, **kwargs):
         self.args: Dict[str, Any] = {}
