@@ -43,7 +43,7 @@ def update(*args, many: bool = False):
         return cursor
     except psycopg2.errors.SyntaxError:
         logger.error(traceback.format_exc() + "\n" + args[0])
-    except psycopg2.DatabaseError:
+    except (psycopg2.DatabaseError, psycopg2.OperationalError):
         if IS_DEBUG:
             logger.error(traceback.format_exc())
             return
