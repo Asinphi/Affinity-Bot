@@ -401,7 +401,7 @@ class Characters(commands.Cog):
             await lang.get('characters.error.collection_does_not_exist').send(ctx, name=collection_name)
             return
         if activate:
-            active_collection_names.add(f"'f{collection_id}'")
+            active_collection_names.add(f"'{collection_id}'")
         else:
             active_collection_names.discard(f"'{collection_id}'")
         await lang.get('characters.active_toggled').send(ctx, collection=collection_name, active=activate)
