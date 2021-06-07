@@ -70,7 +70,8 @@ roles: __Dict[str, discord.Role]
 
 @__functools.cache
 def slash_guild() -> __Optional[__List[int]]:
-    return None if __os.environ['DEBUG'] == "0" else [rda.id]
+    #  return None if __os.environ['DEBUG'] == "0" else [rda.id]
+    return [rda.id]
 
 
 @client.listen('on_ready')
