@@ -397,7 +397,7 @@ class Characters(commands.Cog):
                 """,
                 (activate, collection_name)
             ).fetchone()[0]
-        except KeyError:
+        except TypeError:
             await lang.get('characters.error.collection_does_not_exist').send(ctx, name=collection_name)
             return
         if activate:
