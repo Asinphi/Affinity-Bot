@@ -268,6 +268,17 @@ messages:
             description: |
               There are no characters left for claim.
 
+      no_pending_characters_to_claim:
+        - embed:
+            title: "%emoji.error% No pending characters to claim"
+            color: "%color.error%"
+            description: >
+              Use `/character roll` to roll for a character before you try to claim it. You only have 90 seconds to
+              claim and you cannot undo this command once you have claimed a character.
+
+
+              You can only claim your own pending character, not others' :P
+
       character_already_claimed:
         - embed:
             title: "%emoji.error% %character% is already claimed"

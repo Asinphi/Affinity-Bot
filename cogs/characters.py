@@ -230,6 +230,9 @@ class Characters(commands.Cog):
                     description="Claim the pending character - this cannot be undone",
                     base_default_permission=True)
     async def character_claim(self, ctx: SlashContext):
+        if not latest_rolls.get(ctx.author.id):
+            await lang.get('characters.error.no_pending_characters_to_claim').send(ctx)
+            return
         await character_claiming_event.fire(ctx.author.id, ctx)
 
     @cog_subcommand(base="character", name="list", guild_ids=slash_guild(),
