@@ -303,15 +303,15 @@ class Characters(commands.Cog):
             pool = database.query(
                 f"""
                 SELECT name, quantity
-                FROM character_data
-                WHERE quantity != 0 AND collection in ({','.join(active_collection_names)})
-                AND rarity = %s
+                FROM character_data INNER JOIN character_rarity ON (num_stars = rarity)
+                WHERE rarity = %s AND collection in ({','.join(active_collection_names)})
+                AND (quantity != 0 OR hidden = true)
                 """,
                 (tier,)
             ).fetchall()
             if len(pool) > 0:
                 embed.add_field(name=star_str, value="\n"
-                                .join(f"{name if tier not in hidden_tiers else '???'} "
+                                .join(f"{name if quantity == 0 or tier not in hidden_tiers else '???'} "
                                       f"x {quantity if quantity != -1 else '♾'}" for name, quantity in pool))
         await node.send(ctx)
 
