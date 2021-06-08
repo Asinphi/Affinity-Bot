@@ -114,6 +114,11 @@ def roll_character(user_id: int):
     now = datetime.utcnow()
     latest_rolls[user_id] = now
 
+    member = rda.get_member(user_id)
+    if member:
+        asyncio.create_task(member.add_roles(roles['character_event'],
+                                             reason="Character event participation: roll for character"))
+
     async def wait_for_claim():
         try:
             _, ctx = await character_claiming_event.wait(lambda claimer_id, _: claimer_id == user_id, timeout=90)

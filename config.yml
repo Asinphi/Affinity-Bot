@@ -28,12 +28,14 @@ roles:
   owner: 689855810305785921 # King of the Pirates
   high_admin: 815671157080326186 # Marine corps
   admin: 689856369075290290 # Yonko
+  character_event: 851662143254298624
   everyone: 427907779479601162
 
 test_roles: # Testing.
   owner: 676260552892481567 # Owner
   high_admin: 677766289154113536 # Admin
   admin: 677766290466799616 # Moderator
+  character_event: 851607425920270356
   everyone: 676175299121250327
 
 reaction_roles: # Can use global placeholders from messages.yml in emojis
