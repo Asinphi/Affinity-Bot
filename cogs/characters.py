@@ -269,7 +269,7 @@ class Characters(commands.Cog):
                 claim_ctx = claim[-1]
                 await lang.get('characters.claimed').send(claim_ctx, url=msg.jump_url, character=name,
                                                           collection=collection, num_left=quantity - 1
-                                                          if quantity != -1 else "infinite")
+                                                          if quantity != '♾' else quantity)
                 node.nodes[0].args['embed'].title += " (CLAIMED)"
                 await node.edit(msg)
             else:

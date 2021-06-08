@@ -1,6 +1,18 @@
-2021-05-31 19:06:17,345:WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
-2021-05-31 19:06:17,536:INFO:discord.client: logging in using static token
-2021-05-31 19:06:17,722:INFO:discord.gateway: Shard ID None has sent the IDENTIFY payload.
-2021-05-31 19:06:17,848:INFO:discord.gateway: Shard ID None has connected to Gateway: ["gateway-prd-main-qc3z",{"micros":98062,"calls":["discord-sessions-green-prd-2-36",{"micros":96455,"calls":["start_session",{"micros":92135,"calls":["api-prd-main-9btb",{"micros":86493,"calls":["get_user",{"micros":12166},"add_authorized_ip",{"micros":5842},"get_guilds",{"micros":13920},"coros_wait",{"micros":1}]}]},"guilds_connect",{"micros":1,"calls":[]},"presence_connect",{"micros":2,"calls":[]}]}]}] (Session ID: 7a83e6629c477b19c2476f507a3c80a7).
-2021-05-31 19:06:19,866:INFO:discord: Created globals using DEBUG set
-2021-05-31 19:06:19,866:INFO:discord: Logged in as HELLO WAKE UP IT'S CLASS TIME#5303. I am in 2 guilds.
+2021-06-07 23:25:42,532:WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2021-06-07 23:25:42,751:INFO:discord.client: logging in using static token
+2021-06-07 23:25:42,965:INFO:discord.gateway: Shard ID None has sent the IDENTIFY payload.
+2021-06-07 23:25:43,066:INFO:discord.gateway: Shard ID None has connected to Gateway: ["gateway-prd-main-ctt2",{"micros":80961,"calls":["discord-sessions-blue-prd-2-170",{"micros":79822,"calls":["start_session",{"micros":39491,"calls":["api-prd-main-kk4r",{"micros":36658,"calls":["get_user",{"micros":2822},"add_authorized_ip",{"micros":1619},"get_guilds",{"micros":7358},"coros_wait",{"micros":1}]}]},"guilds_connect",{"micros":2,"calls":[]},"presence_connect",{"micros":36657,"calls":[]}]}]}] (Session ID: 2595f5ed78d6891691c189e96450a654).
+2021-06-07 23:25:45,063:INFO:discord: Created globals using DEBUG set
+2021-06-07 23:25:45,063:INFO:discord: Logged in as HELLO WAKE UP IT'S CLASS TIME#5303. I am in 2 guilds.
+2021-06-08 00:49:36,855:INFO:discord.client: Got a request to RESUME the websocket.
+2021-06-08 00:49:37,159:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2021-06-08 00:49:37,205:INFO:discord.gateway: Shard ID None has successfully RESUMED session 2595f5ed78d6891691c189e96450a654 under trace ["gateway-prd-main-c1b0",{"micros":15422,"calls":["discord-sessions-blue-prd-2-170",{"micros":13}]}].
+2021-06-08 01:07:38,548:INFO:discord.gateway: Timed out receiving packet. Attempting a reconnect.
+2021-06-08 01:07:38,548:INFO:discord.client: Got a request to RESUME the websocket.
+2021-06-08 01:07:42,285:INFO:discord.gateway: Shard ID None has sent the RESUME payload.
+2021-06-08 01:07:42,305:INFO:discord.gateway: Shard ID None session has been invalidated.
+2021-06-08 01:07:42,325:INFO:discord.client: Got a request to IDENTIFY the websocket.
+2021-06-08 01:07:47,400:INFO:discord.gateway: Shard ID None has sent the IDENTIFY payload.
+2021-06-08 01:07:47,491:INFO:discord.gateway: Shard ID None has connected to Gateway: ["gateway-prd-main-chs2",{"micros":58711,"calls":["discord-sessions-blue-prd-2-40",{"micros":57377,"calls":["start_session",{"micros":32225,"calls":["api-prd-main-h88b",{"micros":29012,"calls":["get_user",{"micros":4168},"add_authorized_ip",{"micros":1427},"get_guilds",{"micros":5087},"coros_wait",{"micros":1}]}]},"guilds_connect",{"micros":1,"calls":[]},"presence_connect",{"micros":13463,"calls":[]}]}]}] (Session ID: 46020056600ed9e173cfdb5a9b2a786c).
+2021-06-08 01:07:49,551:INFO:discord: Created globals using DEBUG set
+2021-06-08 01:07:49,552:INFO:discord: Logged in as HELLO WAKE UP IT'S CLASS TIME#5303. I am in 2 guilds.
