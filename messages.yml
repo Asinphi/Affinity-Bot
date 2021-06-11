@@ -179,7 +179,7 @@ messages:
           title: "Claimed %character%!"
           color: "%color.success%"
           description: |
-            You successfully claimed [%character%](%url%) as your %collection% character! There's %num_left% remaining.
+            You successfully claimed **[%character%](%url%)** as your %collection% character! There's %num_left% remaining.
 
     list:
       - embed:
