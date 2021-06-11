@@ -210,7 +210,7 @@ class Characters(commands.Cog):
         async def page_character(page: int, title: str, user: discord.User, reaction: discord.Reaction):
             if title != lang.get('characters.owned').nodes[-1].args['embed'].title:
                 return
-            match = re.match(r'<@\d{17,}>', reaction.message.embeds[-1].description)
+            match = re.match(r'<@!?\d{17,}>', reaction.message.embeds[-1].description)
             ctx = commands.Context(bot=client, message=reaction.message, prefix=':P')
             await character_page(reaction.message, page, await commands.UserConverter().convert(ctx, match.group(0)),
                                  user)
